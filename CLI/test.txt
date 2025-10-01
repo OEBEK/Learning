@@ -1,0 +1,29 @@
+Funktionsanforderungen
+1️⃣ Grundfunktionen
+Feature	Beschreibung
+Aufgabe anlegen	Nutzer gibt Titel (Pflicht), optionale Beschreibung, Fälligkeitsdatum ein.
+Aufgabenliste anzeigen	Zeigt alle offenen Aufgaben mit ID, Titel, Status, Datum.
+Aufgabe abhaken	Markiert eine Aufgabe als „erledigt“.
+Aufgabe löschen	Entfernt eine Aufgabe aus der Liste.
+Aufgabe bearbeiten (optional)	Titel, Beschreibung oder Datum ändern.
+
+2️⃣ JSON-Speicherung
+
+Alle Aufgaben werden in einer Datei todos.json gespeichert.
+
+Struktur-Beispiel:
+
+[
+  {
+    "id": 1,
+    "title": "Python Kurs starten",
+    "description": "Kapitel 1-3 lesen",
+    "due_date": "2025-10-10",
+    "status": "open"
+  }
+]
+
+todo/
+├─ todo.py         # CLI-Einstiegspunkt
+├─ storage.py      # Funktionen zum Lesen/Schreiben von JSON
+└─ tasks.py        # Logik für Hinzufügen, Bearbeiten, Löschen
