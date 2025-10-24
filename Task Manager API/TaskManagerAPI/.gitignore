@@ -1,0 +1,113 @@
+# Build / bin / obj
+[Bb]in/
+[Oo]bj/
+**/bin/
+**/obj/
+
+# Visual Studio
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Rider / JetBrains
+.idea/
+*.sln.iml
+
+# Visual Studio Code
+.vscode/
+
+# Debug / publish / deploy output
+*.Publish.xml
+publish/
+publish_output/
+*.deployproj
+
+# NuGet
+*.nupkg
+# The packages folder can be large; modern projects use PackageReference so packages/ is uncommon
+packages/
+.nuget/
+project.lock.json
+project.fragment.lock.json
+
+# Rider caches
+.idea/
+
+# Dotnet user secrets (local, do not commit)
+secrets.json
+# note: actual dotnet user-secrets are stored outside the repo, but this covers any local secrets file
+
+# ASP.NET Core / configuration / local settings
+appsettings.*.json
+# If you want to keep e.g. appsettings.Production.json in repo, remove it above.
+launchSettings.json
+
+# Entity Framework / local DBs
+*.mdf
+*.ldf
+*.sqlite
+*.db
+
+# Logs
+*.log
+logs/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.temp
+
+# Test results
+TestResults/
+*.trx
+*.Coverage
+coverage/
+
+# Coverage tools
+coverage/
+coverage*.xml
+*.lcov
+
+# Resharper
+_ReSharper*/
+*.[Rr]e[Ss]harper*
+
+# StyleCop
+.stylecop
+
+# Image / asset cache
+wwwroot/lib/
+
+# Generated files
+Generated/
+obj/**/DesignTimeResolveAssemblyReferences.cache
+
+# Certificates/keys/env
+*.pfx
+*.cer
+*.key
+.env
+.env.local
+
+# Containers / Docker
+docker-compose.override.yml
+docker-compose.*.yml
+**/Dockerfile
+
+# VS Code workspace storage
+*.code-workspace
+
+# Others (IDE/editor)
+*.sublime-workspace
+*.sublime-project
+
+# Ignore node modules if project includes frontend
+node_modules/
+
+# Optional: publish output from dotnet publish
+**/publish/

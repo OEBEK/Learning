@@ -1,0 +1,103 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+.eggs/
+*.egg
+pip-wheel-metadata/
+.wheelhouse/
+
+# Virtual environments
+venv/
+env/
+ENV/
+.venv/
+.pyenv/
+.venv*/
+env*/
+Pipfile.lock
+poetry.lock
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+coverage.xml
+*.cover
+*.py,cover
+.cache
+nosetests.xml
+coverage/
+*.lcov
+
+# Pytest cache
+.pytest_cache/
+
+# Jupyter notebooks (if any)
+.ipynb_checkpoints
+
+# mypy / type checker
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Pyre / pytype
+.pyre/
+.pytype/
+
+# Pylint
+pylint.log
+
+# VSCode / IDEs
+.vscode/
+.idea/
+.spyproject/
+.ropeproject/
+
+# Logs and temp files
+*.log
+*.tmp
+*.temp
+
+# macOS / Windows / Linux system files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Environment / secrets
+.env
+.env.*
+*.pem
+*.key
+*.crt
+
+# Documentation build (Sphinx etc.)
+docs/_build/
+site/
+
+# Profiling data
+.prof
+*.pstats
+*.profile
+
+# Wheelhouse / installer cache
+*.whl
+__pypackages__/
+
+# Local CLI cache or metadata
+.cache/
+*.db
+
+# Optional: ignore test data or generated files
+data/
+output/
+results/
