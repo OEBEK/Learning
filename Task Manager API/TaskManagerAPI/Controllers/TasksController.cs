@@ -41,6 +41,68 @@ namespace TaskManagerAPI.Controllers
             //return Ok(tasks);
         }
 
+
+        // Delete: api/tasks/{id}
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteTaskByID(int id)
+        {
+            try
+            {
+                var deletedTask = await _taskService.DeleteTask(id);
+                return Ok($"Task '{deletedTask.Title}' gelöscht."); // falls du z.B. einen Namen hast
+            }
+            catch (ArgumentException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Fehler beim Löschen: {ex.Message}");
+            }
+        }
+
+        // Post: api/tasks/{id}
+        [HttpPost("done/{id}")]
+        public async Task<IActionResult> SetDoneTask(int id)
+        {
+            try
+            {
+                var Task = await _taskService.setDone(id);
+                return Ok($"Task '{Task}' ist erledigt."); // falls du z.B. einen Namen hast
+            }
+            catch (ArgumentException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Fehler beim Setzen auf Ferti: {ex.Message}");
+            }
+
+           
+        }
+
+
+        // Post: api/tasks/{id}
+        [HttpPost("{id}")]
+        public async Task<IActionResult> updateTask(int id, [FromBody] TaskItem updatedTask)
+        {
+            try
+            {
+                var Task = await _taskService.updateTask(id, updatedTask);
+                return Ok($"Task '{Task?.Title}' wurde angepasst."); // falls du z.B. einen Namen hast
+            }
+            catch (ArgumentException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Fehler beim Setzen auf Ferti: {ex.Message}");
+            }
+        }
+
+
         // POST: api/tasks
         [HttpPost]
         public async Task<IActionResult> Create(TaskItem task)

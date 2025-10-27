@@ -1,12 +1,15 @@
 using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
 using TaskManagerAPI.Data;
 using TaskManagerAPI.Models;
+using TaskManagerAPI.Utilities;
 
 
 namespace TaskManagerAPI.Services
 {
     public class TaskService
     {
+
         private readonly AppDbContext _context;
 
         public TaskService(AppDbContext context)
@@ -29,17 +32,37 @@ namespace TaskManagerAPI.Services
         // Set Done
         public async Task<TaskItem?> setDone(int taskId)
         {
-            return await _context.Tasks.FindAsync(taskId);
+            
+            var task = await _context.Tasks.FindAsync(taskId);
+            if (task == null)
+                throw new ArgumentException("Task not found");
+
+            task.IsCompleted = true;
+            await _context.SaveChangesAsync();
+
+            return task;
+
         }
 
-        //// GET ALL
-        //public async Task<IEnumerable<TaskItem>> GetTaskItem()
-        //{
-        //    return await _context.Tasks.ToListAsync();
-        //}
+        // Update task
+        public async Task<TaskItem?> updateTask(int taskId, TaskItem updatedTask)
+        {
+
+            var task = await _context.Tasks.FindAsync(taskId);
+            if (task == null)
+                throw new ArgumentException("Task not found");
 
 
+            task.Title = UpdateHelper.KeepOriginalIfEmpty(task.Title, updatedTask.Title);
+            task.Description = UpdateHelper.KeepOriginalIfEmpty(task.Description, updatedTask.Description);
 
+            await _context.SaveChangesAsync();
+
+            return task;
+
+        }
+
+ 
         // CREATE
         public async Task<TaskItem> CreateTask(TaskItem task)
         {
@@ -50,6 +73,20 @@ namespace TaskManagerAPI.Services
             await _context.SaveChangesAsync();
 
             return task;
+        }
+
+        // Delete
+        public async Task<TaskItem> DeleteTask(int taskId)
+        {
+            var foundTask = await _context.Tasks.FindAsync(taskId);
+
+            if (foundTask == null)
+                throw new ArgumentException("Task nicht gefunden.");
+
+            _context.Tasks.Remove(foundTask);
+            await _context.SaveChangesAsync();
+
+            return foundTask;
         }
 
 

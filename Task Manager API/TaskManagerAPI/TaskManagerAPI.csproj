@@ -39,6 +39,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Utilities\" />
     <Folder Include="Services\" />
   </ItemGroup>
 
