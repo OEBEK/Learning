@@ -1,10 +1,14 @@
 using TaskManagerAPI.Models;
 
-public interface ITaskRepository
+namespace TaskManagerAPI.Repositories
 {
-    Task<IEnumerable<TaskItem>> GetAllAsync();
-    Task<TaskItem?> GetByIdAsync(int id);
-    Task AddAsync(TaskItem task);
-    Task DeleteAsync(TaskItem task);
-    Task SaveChangesAsync();
+    public interface ITaskRepository
+    {
+        Task<IEnumerable<TaskItem>> GetAllAsync();
+        Task<TaskItem?> GetByIdAsync(int id);
+        Task AddAsync(TaskItem task);
+        void Update(TaskItem task);
+        void Delete(TaskItem task);
+        Task SaveAsync();
+    }
 }

@@ -1,7 +1,4 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System.Threading.Tasks;
-using TaskManagerAPI.Data;
 using TaskManagerAPI.Models;
 using TaskManagerAPI.Services;
 
@@ -18,7 +15,6 @@ namespace TaskManagerAPI.Controllers
             _taskService = taskService;
         }
 
-
         // GET: api/tasks
         [HttpGet]
         public async Task<IActionResult> GetAll()
@@ -29,94 +25,45 @@ namespace TaskManagerAPI.Controllers
 
         // GET: api/tasks/{id}
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetTaskById(int id)
+        public async Task<IActionResult> GetById(int id)
         {
-            var taskItem = await _taskService.GetTaskItem(id);
+            var task = await _taskService.GetTaskItem(id);
+            if (task == null)
+                return NotFound($"Task mit ID {id} nicht gefunden.");
 
-            if (taskItem == null)
-                return NotFound();
-
-            return Ok(taskItem);
-            //var tasks = await _taskService.GetAllTasks();
-            //return Ok(tasks);
+            return Ok(task);
         }
-
-
-        // Delete: api/tasks/{id}
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteTaskByID(int id)
-        {
-            try
-            {
-                var deletedTask = await _taskService.DeleteTask(id);
-                return Ok($"Task '{deletedTask.Title}' gelöscht."); // falls du z.B. einen Namen hast
-            }
-            catch (ArgumentException ex)
-            {
-                return NotFound(ex.Message);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"Fehler beim Löschen: {ex.Message}");
-            }
-        }
-
-        // Post: api/tasks/{id}
-        [HttpPost("done/{id}")]
-        public async Task<IActionResult> SetDoneTask(int id)
-        {
-            try
-            {
-                var Task = await _taskService.setDone(id);
-                return Ok($"Task '{Task}' ist erledigt."); // falls du z.B. einen Namen hast
-            }
-            catch (ArgumentException ex)
-            {
-                return NotFound(ex.Message);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"Fehler beim Setzen auf Ferti: {ex.Message}");
-            }
-
-           
-        }
-
-
-        // Post: api/tasks/{id}
-        [HttpPost("{id}")]
-        public async Task<IActionResult> updateTask(int id, [FromBody] TaskItem updatedTask)
-        {
-            try
-            {
-                var Task = await _taskService.updateTask(id, updatedTask);
-                return Ok($"Task '{Task?.Title}' wurde angepasst."); // falls du z.B. einen Namen hast
-            }
-            catch (ArgumentException ex)
-            {
-                return NotFound(ex.Message);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"Fehler beim Setzen auf Ferti: {ex.Message}");
-            }
-        }
-
 
         // POST: api/tasks
         [HttpPost]
-        public async Task<IActionResult> Create(TaskItem task)
+        public async Task<IActionResult> Create([FromBody] TaskItem task)
         {
-            try
-            {
-                var createdTask = await _taskService.CreateTask(task);
-                return CreatedAtAction(nameof(GetAll), new { id = createdTask.Id }, createdTask);
-            }
-            catch (ArgumentException ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            var createdTask = await _taskService.CreateTask(task);
+            return CreatedAtAction(nameof(GetById), new { id = createdTask.Id }, createdTask);
         }
 
+        // PUT: api/tasks/{id}
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update(int id, [FromBody] TaskItem updatedTask)
+        {
+            var task = await _taskService.UpdateTask(id, updatedTask);
+            return Ok(task);
+        }
+
+        // POST: api/tasks/{id}/done
+        [HttpPost("{id}/done")]
+        public async Task<IActionResult> SetDone(int id)
+        {
+            var task = await _taskService.SetDone(id);
+            return Ok(task);
+        }
+
+        // DELETE: api/tasks/{id}
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var deletedTask = await _taskService.DeleteTask(id);
+            return Ok(deletedTask);
+        }
     }
 }
