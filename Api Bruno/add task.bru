@@ -1,0 +1,24 @@
+meta {
+  name: add task
+  type: http
+  seq: 1
+}
+
+post {
+  url: https://localhost:58028/api/tasks
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "title": "Einkaufen",
+    "description": "brezel "
+  }
+  
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

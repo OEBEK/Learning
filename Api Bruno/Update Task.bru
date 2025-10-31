@@ -1,0 +1,23 @@
+meta {
+  name: Update Task
+  type: http
+  seq: 7
+}
+
+post {
+  url: https://localhost:58028/api/tasks/1
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "title": "Buy groceries",
+    "description": "Remember to get milk and bead"
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

@@ -1,0 +1,15 @@
+meta {
+  name: set Task done
+  type: http
+  seq: 6
+}
+
+post {
+  url: https://localhost:7247/api/tasks/done/1
+  body: json
+  auth: inherit
+}
+
+settings {
+  encodeUrl: true
+}
