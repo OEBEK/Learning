@@ -4,7 +4,7 @@ meta {
   seq: 7
 }
 
-post {
+put {
   url: https://localhost:58028/api/tasks/1
   body: json
   auth: inherit
@@ -13,7 +13,8 @@ post {
 body:json {
   {
     "title": "Buy groceries",
-    "description": "Remember to get milk and bead"
+    "description": "Remember to get milk and bead",
+    "dueDate": null
   }
 }
 

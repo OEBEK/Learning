@@ -44,6 +44,9 @@ namespace TaskManagerAPI.Services
             task.Description = string.IsNullOrWhiteSpace(updatedTask.Description)
                 ? task.Description : updatedTask.Description;
 
+            task.DueDate = updatedTask.DueDate.HasValue
+                ? updatedTask.DueDate :task.DueDate;
+
             _repository.Update(task);
             await _repository.SaveAsync();
             return task;
